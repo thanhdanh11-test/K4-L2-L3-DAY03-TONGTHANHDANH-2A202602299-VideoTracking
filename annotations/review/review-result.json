@@ -1,0 +1,23 @@
+{
+  "reviewed_frames": {
+    "clip_01": 190,
+    "clip_02": 60
+  },
+  "exported": false,
+  "jobs": [
+    {
+      "job": 4,
+      "tracks": 6,
+      "visible_boxes": 239,
+      "track_ids_preserved": true,
+      "readback_verified": true
+    },
+    {
+      "job": 5,
+      "tracks": 8,
+      "visible_boxes": 603,
+      "track_ids_preserved": true,
+      "readback_verified": true
+    }
+  ]
+}

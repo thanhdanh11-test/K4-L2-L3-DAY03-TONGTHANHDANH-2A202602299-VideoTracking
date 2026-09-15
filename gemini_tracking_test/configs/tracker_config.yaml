@@ -1,0 +1,14 @@
+# Configuration for Gemini Tracking Test
+tracker_type: bytetrack
+track_high_thresh: 0.25
+track_low_thresh: 0.10
+new_track_thresh: 0.25
+track_buffer: 30
+match_thresh: 0.80
+fuse_score: true
+model_weights: "yolo26n.pt"
+conf_threshold: 0.25
+iou_threshold: 0.70
+img_size: 960
+classes: [2, 5, 7] # COCO: car, bus, truck
+fps: 12.5

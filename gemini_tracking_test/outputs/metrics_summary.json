@@ -1,0 +1,65 @@
+{
+  "total_frames_processed": 60,
+  "total_detections": 228,
+  "unique_track_count": 7,
+  "tracks": {
+    "1": {
+      "first_frame": 1,
+      "last_frame": 60,
+      "duration_frames": 60,
+      "lifespan_span": 60,
+      "avg_confidence": 0.863,
+      "class": "bus"
+    },
+    "2": {
+      "first_frame": 1,
+      "last_frame": 60,
+      "duration_frames": 60,
+      "lifespan_span": 60,
+      "avg_confidence": 0.798,
+      "class": "bus"
+    },
+    "3": {
+      "first_frame": 1,
+      "last_frame": 8,
+      "duration_frames": 8,
+      "lifespan_span": 8,
+      "avg_confidence": 0.718,
+      "class": "car"
+    },
+    "4": {
+      "first_frame": 1,
+      "last_frame": 2,
+      "duration_frames": 2,
+      "lifespan_span": 2,
+      "avg_confidence": 0.592,
+      "class": "car"
+    },
+    "8": {
+      "first_frame": 12,
+      "last_frame": 58,
+      "duration_frames": 47,
+      "lifespan_span": 47,
+      "avg_confidence": 0.844,
+      "class": "car"
+    },
+    "10": {
+      "first_frame": 16,
+      "last_frame": 36,
+      "duration_frames": 21,
+      "lifespan_span": 21,
+      "avg_confidence": 0.782,
+      "class": "car"
+    },
+    "12": {
+      "first_frame": 31,
+      "last_frame": 60,
+      "duration_frames": 30,
+      "lifespan_span": 30,
+      "avg_confidence": 0.842,
+      "class": "car"
+    }
+  },
+  "inference_time_sec": 3.15,
+  "inference_fps": 19.1
+}

@@ -1,0 +1,23 @@
+{
+  "pre_gold_hash_verified": true,
+  "pre_gold_unchanged": "274db7fc966b520b1eb40195d145fb8119f14b040df60eeaf09d460e74afed56",
+  "exports": [
+    {
+      "clip": "clip_01",
+      "zip": "annotations/clip_01-reviewed-mot.zip",
+      "target": "annotations/clip_01/gt.txt",
+      "sha256": "2be2f9b7a2b587fa079b169662ac37dc5660cfa97c59a0bd807b791e02502ba4",
+      "rows": 603,
+      "save_images": false
+    },
+    {
+      "clip": "clip_02",
+      "zip": "annotations/clip_02-reviewed-mot.zip",
+      "target": "annotations/clip_02/gt.txt",
+      "sha256": "9cde681f250034e2be2640ebd5776600c5ee28258918fd4e62f603735d72c98d",
+      "rows": 239,
+      "save_images": false
+    }
+  ],
+  "gold_sha256": "94a2bd34aa00348b49cd3ec48e85dbfeaf00504b97349e343363d40e4d1f9d79"
+}

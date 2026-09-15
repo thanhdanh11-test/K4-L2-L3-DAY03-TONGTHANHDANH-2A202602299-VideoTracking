@@ -1,0 +1,23 @@
+# Golden reference của clip chính chỉ tồn tại trong repo coach/instructor.
+# Student release được dựng bằng instructor/tools/make_student_release.sh.
+gold/*
+!gold/.gitkeep
+
+# Kết quả học viên được phép commit có chủ đích.
+outputs/*
+!outputs/.gitkeep
+!outputs/*.json
+!outputs/model_clip_01.txt
+!outputs/model_bytetrack_clip_01.txt
+!outputs/model_reid_clip_01.txt
+
+# Artifact tạm và model weights.
+outputs/vis_*/
+outputs/tmp_*.txt
+*.pt
+*.zip
+
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
