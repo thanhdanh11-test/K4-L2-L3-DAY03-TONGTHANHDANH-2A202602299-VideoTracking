@@ -9,13 +9,15 @@ Ngày: **15/09/2026**
 
 ## 1. Quá trình gán nhãn
 
-| Mục | Giá trị |
-| --- | --- |
-| Công cụ | CVAT Local 2.74.1 — project 5; task/job `clip_02`: 4/4, task/job `clip_01`: 5/5 |
-| Thời gian gán `clip_02` (warm-up) | Không có nhật ký thời gian thao tác riêng |
-| Thời gian gán `clip_01` | Không có nhật ký thời gian thao tác riêng |
-| Số track đã vẽ trong `clip_01` | 8 track, 603 bbox nhìn thấy |
-| Số keyframe trung bình mỗi track | 76,1 shape/track nếu tính 603 bbox và 6 marker `outside`; 75,4 bbox nhìn thấy/track |
+
+| Mục                               | Giá trị                                                                             |
+| --------------------------------- | ----------------------------------------------------------------------------------- |
+| Công cụ                           | CVAT Local 2.74.1                                                                   |
+| Thời gian gán `clip_02` (warm-up) | 1 hour                                                                              |
+| Thời gian gán `clip_01`           | 4 hour                                                                              |
+| Số track đã vẽ trong `clip_01`    | 8 track, 603 bbox nhìn thấy                                                         |
+| Số keyframe trung bình mỗi track  | 76,1 shape/track nếu tính 603 bbox và 6 marker `outside`; 75,4 bbox nhìn thấy/track |
+
 
 Ba tình huống khó nhất và cách xử lý:
 
@@ -40,27 +42,33 @@ Validator cuối:
 
 ## 3. Pre-gold lock và chấm trước/sau rework
 
-| Evidence | Giá trị |
-| --- | --- |
-| SHA-256 từ `evidence/pre-gold/clip_01/manifest.json` | `274db7fc966b520b1eb40195d145fb8119f14b040df60eeaf09d460e74afed56` |
-| Thời điểm khóa | `2026-09-15T05:43:09.565319+00:00` (`12:43:09 +07`) |
-| Số row / frame / track trước khi mở reference | 581 / 190 / 8 |
 
-| | HOTA | DetA | AssA | LocA | IDF1 | MOTA | MOTP | FP | FN | IDSW |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Bản pre-gold | 0,737 | 0,703 | 0,780 | 0,812 | 0,941 | 0,881 | 0,780 | 38 | 30 | 0 |
-| Sau rework | 0,811 | 0,785 | 0,846 | 0,872 | 0,949 | 0,895 | 0,861 | 45 | 15 | 0 |
+| Evidence                                             | Giá trị                                                            |
+| ---------------------------------------------------- | ------------------------------------------------------------------ |
+| SHA-256 từ `evidence/pre-gold/clip_01/manifest.json` | `274db7fc966b520b1eb40195d145fb8119f14b040df60eeaf09d460e74afed56` |
+| Thời điểm khóa                                       | `2026-09-15T05:43:09.565319+00:00` (`12:43:09 +07`)                |
+| Số row / frame / track trước khi mở reference        | 581 / 190 / 8                                                      |
+
+
+
+|              | HOTA  | DetA  | AssA  | LocA  | IDF1  | MOTA  | MOTP  | FP  | FN  | IDSW |
+| ------------ | -----: | -----: | -----: | -----: | -----: | -----: | -----: | ---: | ---: | ----: |
+| Bản pre-gold | 0,737 | 0,703 | 0,780 | 0,812 | 0,941 | 0,881 | 0,780 | 38  | 30  | 0    |
+| Sau rework   | 0,811 | 0,785 | 0,846 | 0,872 | 0,949 | 0,895 | 0,861 | 45  | 15  | 0    |
+
 
 Qua cổng (`IDF1 >= 0,80`, `MOTA >= 0,75`, `MOTP >= 0,70`): **có**.
 
 Rework hình học và biên track đã hoàn tất trong vòng tự kiểm trước khi nhận gold; sau khi có gold không sửa nhãn chỉ để tối ưu metric.
 
-| Loại lỗi | Frame | ID | Đã xử lý thế nào |
-| --- | --- | --- | --- |
-| Bbox trôi/occlusion | 107–109 | 6 | Siết bbox theo phần minivan nhìn thấy, giữ ID và cờ occluded. |
-| Bbox đổi tỉ lệ nhanh | 125 | 4 | Thêm keyframe, căn lại biên xe buýt. |
-| Kết thúc track sớm | `clip_02` 8–10 | 3 | Kéo dài track đến frame nhìn thấy cuối; `outside` ở frame 11. |
-| Xe còn thấy ở cuối clip | 185–190 | 1 | Giữ cùng ID đến frame cuối, không kết thúc ở frame 184. |
+
+| Loại lỗi                | Frame          | ID  | Đã xử lý thế nào                                              |
+| ----------------------- | -------------- | --- | ------------------------------------------------------------- |
+| Bbox trôi/occlusion     | 107–109        | 6   | Siết bbox theo phần minivan nhìn thấy, giữ ID và cờ occluded. |
+| Bbox đổi tỉ lệ nhanh    | 125            | 4   | Thêm keyframe, căn lại biên xe buýt.                          |
+| Kết thúc track sớm      | `clip_02` 8–10 | 3   | Kéo dài track đến frame nhìn thấy cuối; `outside` ở frame 11. |
+| Xe còn thấy ở cuối clip | 185–190        | 1   | Giữ cùng ID đến frame cuối, không kết thúc ở frame 184.       |
+
 
 Sau khi chấm, diagnostic còn chỉ ra 7 đoạn khác quy ước biên track (ID 4–8) và 7 bbox có IoU 0,50–0,59. Hai ví dụ đã soi ảnh là frame 107, nơi gold mở bbox xuống vùng bị che, và frame 125, nơi biên trái/gương xe được xử lý khác nhau. Đây được ghi nhận thay vì sửa mù theo reference.
 
@@ -70,20 +78,24 @@ Sau khi chấm, diagnostic còn chỉ ra 7 đoạn khác quy ước biên track 
 
 Notebook gốc `notebooks/day3_tracking_yolo_bytetrack.ipynb` đã được upload lên Google Colab, chạy tuần tự trên **GPU T4**, `RUN_EXPERIMENT=False`.
 
-| Mục | Giá trị |
-| --- | --- |
-| Python / ultralytics / torch / lap | `3.13.15 / 8.4.145 / 2.11.0+cu128 / 0.5.13` |
-| weights / hai tracker | `yolo26n.pt` / `bytetrack.yaml` / `configs/trackers/botsort-reid.yaml` |
-| conf / IoU / imgsz / classes | `0.25 / 0.70 / 960 / [2, 5, 7]` |
-| device | Google Colab `GPU T4`, cấu hình `device="0"` |
-| Output | ByteTrack: 607 bbox/16 track; BoT-SORT + ReID: 638 bbox/16 track |
 
-| So sánh | HOTA | DetA | AssA | LocA | IDF1 | MOTA | MOTP | FP | FN | IDSW |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| bạn vs gold | 0,811 | 0,785 | 0,846 | 0,872 | 0,949 | 0,895 | 0,861 | 45 | 15 | 0 |
-| ByteTrack control vs gold | 0,709 | 0,649 | 0,776 | 0,846 | 0,875 | 0,749 | 0,823 | 88 | 54 | 2 |
-| BoT-SORT + ReID vs gold | 0,763 | 0,711 | 0,820 | 0,872 | 0,900 | 0,792 | 0,860 | 91 | 26 | 2 |
-| ReID vs bạn | 0,770 | 0,718 | 0,827 | 0,893 | 0,891 | 0,781 | 0,883 | 82 | 47 | 3 |
+| Mục                                | Giá trị                                                                |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| Python / ultralytics / torch / lap | `3.13.15 / 8.4.145 / 2.11.0+cu128 / 0.5.13`                            |
+| weights / hai tracker              | `yolo26n.pt` / `bytetrack.yaml` / `configs/trackers/botsort-reid.yaml` |
+| conf / IoU / imgsz / classes       | `0.25 / 0.70 / 960 / [2, 5, 7]`                                        |
+| device                             | Google Colab `GPU T4`, cấu hình `device="0"`                           |
+| Output                             | ByteTrack: 607 bbox/16 track; BoT-SORT + ReID: 638 bbox/16 track       |
+
+
+
+| So sánh                   | HOTA  | DetA  | AssA  | LocA  | IDF1  | MOTA  | MOTP  | FP  | FN  | IDSW |
+| ------------------------- | -----: | -----: | -----: | -----: | -----: | -----: | -----: | ---: | ---: | ----: |
+| bạn vs gold               | 0,811 | 0,785 | 0,846 | 0,872 | 0,949 | 0,895 | 0,861 | 45  | 15  | 0    |
+| ByteTrack control vs gold | 0,709 | 0,649 | 0,776 | 0,846 | 0,875 | 0,749 | 0,823 | 88  | 54  | 2    |
+| BoT-SORT + ReID vs gold   | 0,763 | 0,711 | 0,820 | 0,872 | 0,900 | 0,792 | 0,860 | 91  | 26  | 2    |
+| ReID vs bạn               | 0,770 | 0,718 | 0,827 | 0,893 | 0,891 | 0,781 | 0,883 | 82  | 47  | 3    |
+
 
 ## 5. Phân tích — năm câu hỏi
 
